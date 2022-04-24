@@ -1,0 +1,21 @@
+.search {
+  padding: 10px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.search::placeholder {
+  color: #fff;
+  font-weight: bold;
+}
+
+.menu__right_container {
+  display: flex;
+  gap: 10px;
+}
