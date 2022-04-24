@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import AddIcon from '@mui/icons-material/Add'
 
-export default function AddProjectButton() {
+export default function AddProjectButton({ setIsOpenModal }) {
   const ButtonStyle = {
     position: 'absolute',
     bottom: '40px',
@@ -9,8 +9,13 @@ export default function AddProjectButton() {
     borderRadius: '50%',
     padding: '20px 30px',
   }
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true)
+  }
+
   return (
-    <Button variant="contained" sx={ButtonStyle}>
+    <Button variant="contained" sx={ButtonStyle} onClick={handleOpenModal}>
       <AddIcon />
     </Button>
   )

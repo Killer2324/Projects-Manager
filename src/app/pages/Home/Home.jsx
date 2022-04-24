@@ -1,8 +1,10 @@
 import Menu from '../../common/Menu'
 import Box from '@mui/material/Box'
-import Project from './components/Project/Project'
+import Project from './components/Project'
 import { useState } from 'react'
 import AddProjectButton from './components/AddProjectButton'
+import AddProjectModal from './components/AddProjectModal'
+import AddProjectForm from './components/AddProjectForm'
 export default function Home() {
   const [project, setProject] = useState([
     {
@@ -18,6 +20,7 @@ export default function Home() {
       link: 'https://www.google.com',
     },
   ])
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const styles = {
     BoxProjectContainer: {
@@ -40,7 +43,12 @@ export default function Home() {
           <Project key={item.id} {...item} />
         ))}
       </Box>
-      <AddProjectButton />
+      {isOpenModal && (
+        <AddProjectModal>
+          <AddProjectForm setIsOpenModal={setIsOpenModal} />
+        </AddProjectModal>
+      )}
+      <AddProjectButton setIsOpenModal={setIsOpenModal} />
     </main>
   )
 }
