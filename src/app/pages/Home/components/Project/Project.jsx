@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import InsertLinkIcon from '@mui/icons-material/InsertLink'
 import { red } from '@mui/material/colors'
 
-export default function Project() {
+export default function Project({ title, description, link }) {
   const styles = {
     CardContainer: {
       width: '100%',
@@ -25,10 +25,12 @@ export default function Project() {
   return (
     <Card sx={styles.CardContainer}>
       <CardContent sx={styles.CardSubContainer}>
-        <Typography variant="h6">Title Project</Typography>
-        <Typography variant="body2">project description</Typography>
+        <Typography variant="h6">{title}</Typography>
+        <Typography variant="body2">{description}</Typography>
         <Box component="div" sx={styles.IconsContainer}>
-          <InsertLinkIcon sx={{ cursor: 'pointer' }} />
+          <a rel="noreferrer" href={link} target="_blank">
+            <InsertLinkIcon sx={{ cursor: 'pointer' }} />
+          </a>
           <DeleteIcon sx={{ color: red[400], cursor: 'pointer' }} />
         </Box>
       </CardContent>
