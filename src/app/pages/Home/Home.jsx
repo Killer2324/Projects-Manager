@@ -5,21 +5,23 @@ import { useState } from 'react'
 import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
+
+const PROJECTS = [
+  {
+    id: 1,
+    title: 'Project 1',
+    description: 'Project 1 description',
+    link: 'https://www.google.com',
+  },
+  {
+    id: 2,
+    title: 'Project 2',
+    description: 'Project 2 description',
+    link: 'https://www.google.com',
+  },
+]
 export default function Home() {
-  const [project, setProject] = useState([
-    {
-      id: 1,
-      title: 'Project 1',
-      description: 'Project 1 description',
-      link: 'https://www.google.com',
-    },
-    {
-      id: 2,
-      title: 'Project 2',
-      description: 'Project 2 description',
-      link: 'https://www.google.com',
-    },
-  ])
+  const [projects, setProjects] = useState(PROJECTS)
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const styles = {
@@ -39,13 +41,17 @@ export default function Home() {
     <main>
       <Menu />
       <Box sx={styles.BoxProjectContainer}>
-        {project.map((item) => (
+        {projects.map((item) => (
           <Project key={item.id} {...item} />
         ))}
       </Box>
       {isOpenModal && (
         <AddProjectModal>
-          <AddProjectForm setIsOpenModal={setIsOpenModal} />
+          <AddProjectForm
+            setIsOpenModal={setIsOpenModal}
+            projects={projects}
+            setProjects={setProjects}
+          />
         </AddProjectModal>
       )}
       <AddProjectButton setIsOpenModal={setIsOpenModal} />

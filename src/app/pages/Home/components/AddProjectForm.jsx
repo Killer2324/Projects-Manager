@@ -1,6 +1,35 @@
+import { useState } from 'react'
 import { Box, Button, Typography, Input } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-export default function AddProjectForm({ setIsOpenModal }) {
+export default function AddProjectForm({
+  setIsOpenModal,
+  projects,
+  setProjects,
+}) {
+  const [newProject, setNewProject] = useState({
+    id: '',
+    title: '',
+    description: '',
+    link: '',
+  })
+  const handleChangeTitle = (e) => {
+    setNewProject({ ...newProject, title: e.target.value })
+  }
+
+  const handleChangeDescription = (e) => {
+    setNewProject({ ...newProject, description: e.target.value })
+  }
+
+  const handleChangeLink = (e) => {
+    setNewProject({ ...newProject, link: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setProjects([...projects, newProject])
+    setIsOpenModal(false)
+  }
+
   const handleClose = () => {
     setIsOpenModal(false)
   }
@@ -44,16 +73,24 @@ export default function AddProjectForm({ setIsOpenModal }) {
 
   return (
     <Box sx={styles.BoxContainer}>
-      <Box component="form" style={styles.BoxForm}>
+      <Box component="form" style={styles.BoxForm} onSubmit={handleSubmit}>
         <Box sx={styles.BoxHeader}>
           <Typography variant="h4">Add Project</Typography>
           <CloseIcon sx={styles.CloseIcon} onClick={handleClose} />
         </Box>
         <Box sx={styles.BoxBody}>
-          <Input placeholder="Title Project" />
-          <Input placeholder="Description Project" />
-          <Input placeholder="link of your project" />
-          <Button variant="contained">create project</Button>
+          <Input placeholder="Title Project" onChange={handleChangeTitle} />
+          <Input
+            placeholder="Description Project"
+            onChange={handleChangeDescription}
+          />
+          <Input
+            placeholder="link of your project"
+            onChange={handleChangeLink}
+          />
+          <Button variant="contained" type="submit">
+            create project
+          </Button>
         </Box>
       </Box>
     </Box>
