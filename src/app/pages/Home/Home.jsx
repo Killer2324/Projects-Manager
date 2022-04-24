@@ -30,7 +30,7 @@ export default function Home() {
       height: 'calc(100vh - 64px)',
       padding: '15px 40px',
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 250px)',
+      gridTemplateColumns: 'repeat(5, 243px)',
       gridAutoRows: '150px',
       gridGap: '15px',
       overflowY: 'scroll',
