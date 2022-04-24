@@ -2,6 +2,7 @@ import Menu from '../../common/Menu'
 import Box from '@mui/material/Box'
 import Project from './components/Project/Project'
 import { useState } from 'react'
+import AddProjectButton from './components/AddProjectButton'
 export default function Home() {
   const [project, setProject] = useState([
     {
@@ -39,6 +40,7 @@ export default function Home() {
           <Project key={item.id} {...item} />
         ))}
       </Box>
+      <AddProjectButton />
     </main>
   )
 }
