@@ -3,7 +3,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import InsertLinkIcon from '@mui/icons-material/InsertLink'
 import { red } from '@mui/material/colors'
 
-export default function Project({ title, description, link }) {
+export default function Project({
+  id,
+  title,
+  description,
+  link,
+  projects,
+  setProjects,
+}) {
+  const handleDeleteProject = (id) => {
+    const indexProject = projects.findIndex((project) => project.id === id)
+    const newProjects = [...projects]
+    newProjects.splice(indexProject, 1)
+    setProjects(newProjects)
+  }
+
   const styles = {
     CardContainer: {
       width: '100%',
@@ -31,7 +45,10 @@ export default function Project({ title, description, link }) {
           <a rel="noreferrer" href={link} target="_blank">
             <InsertLinkIcon sx={{ cursor: 'pointer' }} />
           </a>
-          <DeleteIcon sx={{ color: red[400], cursor: 'pointer' }} />
+          <DeleteIcon
+            sx={{ color: red[400], cursor: 'pointer' }}
+            onClick={() => handleDeleteProject(id)}
+          />
         </Box>
       </CardContent>
     </Card>

@@ -30,7 +30,7 @@ export default function Home() {
       height: 'calc(100vh - 64px)',
       padding: '15px 40px',
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateColumns: 'repeat(4, 250px)',
       gridAutoRows: '150px',
       gridGap: '15px',
       overflowY: 'scroll',
@@ -42,7 +42,12 @@ export default function Home() {
       <Menu />
       <Box sx={styles.BoxProjectContainer}>
         {projects.map((item) => (
-          <Project key={item.id} {...item} />
+          <Project
+            key={item.id}
+            {...item}
+            projects={projects}
+            setProjects={setProjects}
+          />
         ))}
       </Box>
       {isOpenModal && (
