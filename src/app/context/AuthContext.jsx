@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth'
 const context = createContext()
 
@@ -32,13 +33,17 @@ export function AuthProvider({ children }) {
     await signInWithEmailAndPassword(auth, email, password)
   }
 
+  const handleSignOut = async () => {
+    await signOut(auth)
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
         console.log(user)
-        setLoading(false)
       }
+      setLoading(false)
     })
   }, [])
 
@@ -50,6 +55,7 @@ export function AuthProvider({ children }) {
         register,
         loginGoogle,
         loginEmailPassword,
+        handleSignOut,
         loading,
       }}
     >
