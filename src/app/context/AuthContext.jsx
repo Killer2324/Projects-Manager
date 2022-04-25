@@ -15,6 +15,7 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const register = async (email, password) => {
     const user = await createUserWithEmailAndPassword(auth, email, password)
@@ -36,13 +37,21 @@ export function AuthProvider({ children }) {
       if (user) {
         setUser(user)
         console.log(user)
+        setLoading(false)
       }
     })
   }, [])
 
   return (
     <context.Provider
-      value={{ user, setUser, register, loginGoogle, loginEmailPassword }}
+      value={{
+        user,
+        setUser,
+        register,
+        loginGoogle,
+        loginEmailPassword,
+        loading,
+      }}
     >
       {children}
     </context.Provider>

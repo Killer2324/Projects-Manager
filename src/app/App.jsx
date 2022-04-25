@@ -3,18 +3,28 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import { AuthProvider } from './context/AuthContext'
+import ProtectRoutes from './utils/ProtectRoutes'
+
 export default function App() {
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   navigate('/home')
-  // }, [])
-
   return (
     <AuthProvider>
       <Routes>
-        <Route index element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route
+          index
+          element={
+            <ProtectRoutes>
+              <Home />
+            </ProtectRoutes>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectRoutes>
+              <Home />
+            </ProtectRoutes>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Register />} />
       </Routes>
