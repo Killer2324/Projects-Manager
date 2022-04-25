@@ -6,6 +6,7 @@ import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
 import Spinner from '../../common/Spinner'
+import { onSnapshot, collection, orderBy, query } from 'firebase/firestore'
 import { db } from '../../firebase/firebase'
 
 export default function Home() {
@@ -14,9 +15,23 @@ export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
-    db.collection('projects')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) => {
+    /*
+      8 VERSION
+      // db.collection('projects')
+      //   .orderBy('timestamp', 'desc')
+      //   .onSnapshot((snapshot) => {
+      //     setProjects(
+      //       snapshot.docs.map((doc) => ({
+      //         id: doc.id,
+      //         data: doc.data(),
+      //       }))
+      //     )
+      //     setIsLoading(false)
+      //   })
+    */
+    onSnapshot(
+      query(collection(db, 'projects'), orderBy('timestamp', 'desc')),
+      (snapshot) => {
         setProjects(
           snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -24,7 +39,8 @@ export default function Home() {
           }))
         )
         setIsLoading(false)
-      })
+      }
+    )
   }, [])
 
   const styles = {
