@@ -6,9 +6,23 @@ import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
 import { db } from '../../firebase/firebase'
+
 export default function Home() {
   const [projects, setProjects] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false)
+
+  useEffect(() => {
+    db.collection('projects')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        setProjects(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      })
+  }, [])
 
   const styles = {
     BoxProjectContainer: {
@@ -27,10 +41,13 @@ export default function Home() {
     <main>
       <Menu />
       <Box sx={styles.BoxProjectContainer}>
-        {projects.map((item) => (
+        {projects.map(({ id, data: { title, description, link } }) => (
           <Project
-            key={item.id}
-            {...item}
+            key={id}
+            id={id}
+            title={title}
+            description={description}
+            link={link}
             projects={projects}
             setProjects={setProjects}
           />

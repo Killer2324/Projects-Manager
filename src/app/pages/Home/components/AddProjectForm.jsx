@@ -1,13 +1,10 @@
 import { useState } from 'react'
 import { Box, Button, Typography, Input } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-export default function AddProjectForm({
-  setIsOpenModal,
-  projects,
-  setProjects,
-}) {
+import { db } from '../../../firebase/firebase'
+import firebase from 'firebase'
+export default function AddProjectForm({ setIsOpenModal }) {
   const [newProject, setNewProject] = useState({
-    id: '',
     title: '',
     description: '',
     link: '',
@@ -26,7 +23,10 @@ export default function AddProjectForm({
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setProjects([...projects, newProject])
+    db.collection('projects').add({
+      ...newProject,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    })
     setIsOpenModal(false)
   }
 
