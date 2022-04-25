@@ -1,8 +1,42 @@
 import Menu from '../../common/Menu'
+import { useState } from 'react'
 import { Input, Box, Typography, Button } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { red } from '@mui/material/colors'
+import { useAuthContext } from '../../context/AuthContext'
 export default function Login() {
+  const { loginGoogle, loginEmailPassword } = useAuthContext()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const handleLoginGoogle = async () => {
+    try {
+      await loginGoogle()
+      navigate('/home')
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    try {
+      await loginEmailPassword(email, password)
+      navigate('/home')
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
   const styles = {
     BoxContainer: {
       width: '100%',
@@ -46,13 +80,23 @@ export default function Login() {
     <main>
       <Menu />
       <Box component="section" sx={styles.BoxContainer}>
-        <Box component="form" sx={styles.FormContainer}>
+        <Box component="form" sx={styles.FormContainer} onSubmit={handleLogin}>
           <Typography variant="h2" component="h1" sx={styles.Title} gap="10px">
             Login
           </Typography>
-          <Input placeholder="email@email.com" type="email" />
-          <Input placeholder="*********" type="password" />
-          <Link to="/register" style={styles.linkReactRouter}>
+          <Input
+            placeholder="email@email.com"
+            type="email"
+            onChange={handleChangeEmail}
+            value={email}
+          />
+          <Input
+            placeholder="*********"
+            type="password"
+            onChange={handleChangePassword}
+            value={password}
+          />
+          <Link to="/sign-up" style={styles.linkReactRouter}>
             <Typography
               variant="h6"
               component="span"
@@ -66,7 +110,11 @@ export default function Login() {
             Login
           </Button>
           <Box sx={styles.LoginButtonFG}>
-            <Button variant="contained" sx={styles.LoginButtonGoogle}>
+            <Button
+              variant="contained"
+              sx={styles.LoginButtonGoogle}
+              onClick={handleLoginGoogle}
+            >
               Google
             </Button>
             <Button variant="contained">Facebook</Button>
