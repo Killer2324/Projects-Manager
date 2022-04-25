@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react'
 import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
+import Spinner from '../../common/Spinner'
 import { db } from '../../firebase/firebase'
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -21,6 +23,7 @@ export default function Home() {
             data: doc.data(),
           }))
         )
+        setIsLoading(false)
       })
   }, [])
 
@@ -38,31 +41,38 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <Menu />
-      <Box sx={styles.BoxProjectContainer}>
-        {projects.map(({ id, data: { title, description, link } }) => (
-          <Project
-            key={id}
-            id={id}
-            title={title}
-            description={description}
-            link={link}
-            projects={projects}
-            setProjects={setProjects}
-          />
-        ))}
-      </Box>
-      {isOpenModal && (
-        <AddProjectModal>
-          <AddProjectForm
-            setIsOpenModal={setIsOpenModal}
-            projects={projects}
-            setProjects={setProjects}
-          />
-        </AddProjectModal>
+    <>
+      {isLoading && <Menu />}
+      {!isLoading ? (
+        <main>
+          <Menu />
+          <Box sx={styles.BoxProjectContainer}>
+            {projects.map(({ id, data: { title, description, link } }) => (
+              <Project
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                link={link}
+                projects={projects}
+                setProjects={setProjects}
+              />
+            ))}
+          </Box>
+          {isOpenModal && (
+            <AddProjectModal>
+              <AddProjectForm
+                setIsOpenModal={setIsOpenModal}
+                projects={projects}
+                setProjects={setProjects}
+              />
+            </AddProjectModal>
+          )}
+          <AddProjectButton setIsOpenModal={setIsOpenModal} />
+        </main>
+      ) : (
+        <Spinner />
       )}
-      <AddProjectButton setIsOpenModal={setIsOpenModal} />
-    </main>
+    </>
   )
 }
