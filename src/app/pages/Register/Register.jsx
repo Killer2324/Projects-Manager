@@ -1,6 +1,6 @@
 import Menu from '../../common/Menu'
 import { Box, Button, Typography, Input } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuthContext } from '../../context/AuthContext'
 export default function Register() {
@@ -45,6 +45,15 @@ export default function Register() {
     Title: {
       textAlign: 'center',
     },
+    linkReactRouter: { textDecoration: 'none' },
+    link: {
+      textDecoration: 'none',
+      color: '#1976D2',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
   }
 
   return (
@@ -67,6 +76,16 @@ export default function Register() {
             onChange={handleChangePassword}
             value={password}
           />
+          <Link to="/login" style={styles.linkReactRouter}>
+            <Typography
+              variant="h6"
+              component="span"
+              gap="10px"
+              sx={styles.link}
+            >
+              Login
+            </Typography>
+          </Link>
           <Button variant="contained" type="submit">
             register
           </Button>

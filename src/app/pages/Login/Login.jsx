@@ -4,10 +4,16 @@ import { Input, Box, Typography, Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { red } from '@mui/material/colors'
 import { useAuthContext } from '../../context/AuthContext'
+import AlertMessage from '../../common/AlertMessage'
 export default function Login() {
   const { loginGoogle, loginEmailPassword } = useAuthContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState({
+    name: '',
+    message: '',
+  })
+  const [isShowAlertError, setIsShowAlertError] = useState(false)
   const navigate = useNavigate()
 
   const handleChangeEmail = (e) => {
@@ -19,6 +25,7 @@ export default function Login() {
   }
 
   const handleLoginGoogle = async () => {
+    setIsShowAlertError(false)
     try {
       await loginGoogle()
       navigate('/home')
@@ -29,11 +36,13 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault()
+    isShowAlertError && setIsShowAlertError(false)
     try {
       await loginEmailPassword(email, password)
       navigate('/home')
     } catch (e) {
-      console.log(e.message)
+      setIsShowAlertError(true)
+      setError({ title: e.name, message: e.message })
     }
   }
 
@@ -74,6 +83,10 @@ export default function Login() {
         backgroundColor: red[600],
       },
     },
+    LoginWithOtherProviders: {
+      textAlign: 'center',
+      color: '#1976D2',
+    },
   }
 
   return (
@@ -81,12 +94,19 @@ export default function Login() {
       <Menu />
       <Box component="section" sx={styles.BoxContainer}>
         <Box component="form" sx={styles.FormContainer} onSubmit={handleLogin}>
+          {isShowAlertError && (
+            <AlertMessage
+              alertType="error"
+              title={error.name}
+              message={error.message}
+            />
+          )}
           <Typography variant="h2" component="h1" sx={styles.Title} gap="10px">
             Login
           </Typography>
           <Input
             placeholder="email@email.com"
-            type="email"
+            type="text"
             onChange={handleChangeEmail}
             value={email}
           />
@@ -109,6 +129,16 @@ export default function Login() {
           <Button type="submit" variant="contained">
             Login
           </Button>
+          <Box>
+            <Typography
+              variant="h6"
+              component="p"
+              gap="10px"
+              sx={styles.LoginWithOtherProviders}
+            >
+              Login with Google or Facebook
+            </Typography>
+          </Box>
           <Box sx={styles.LoginButtonFG}>
             <Button
               variant="contained"

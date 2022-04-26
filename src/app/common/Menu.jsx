@@ -44,6 +44,7 @@ export default function Menu() {
       width: '80px',
       right: '20px',
       top: '60px',
+      zIndex: '3',
     },
     OptionsLink: {
       textDecoration: 'none',
