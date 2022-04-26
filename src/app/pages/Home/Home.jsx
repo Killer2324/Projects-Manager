@@ -15,20 +15,6 @@ export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
-    /*
-      8 VERSION
-      // db.collection('projects')
-      //   .orderBy('timestamp', 'desc')
-      //   .onSnapshot((snapshot) => {
-      //     setProjects(
-      //       snapshot.docs.map((doc) => ({
-      //         id: doc.id,
-      //         data: doc.data(),
-      //       }))
-      //     )
-      //     setIsLoading(false)
-      //   })
-    */
     onSnapshot(
       query(collection(db, 'projects'), orderBy('timestamp', 'desc')),
       (snapshot) => {

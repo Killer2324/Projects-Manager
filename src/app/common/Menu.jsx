@@ -1,18 +1,11 @@
-import {
-  Typography,
-  Toolbar,
-  Box,
-  AppBar,
-  Button,
-  Card,
-  CardContent,
-} from '@mui/material'
-import { useState, useRef } from 'react'
-import Search from './Search'
+import { Typography, Toolbar, Box, AppBar, Card } from '@mui/material'
+import { useState } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../context/AuthContext'
 
 export default function Menu() {
+  const { handleSignOut } = useAuthContext()
   const [showOptionsPopup, setShowOptionsPopup] = useState(false)
   const navigate = useNavigate()
 
@@ -20,12 +13,17 @@ export default function Menu() {
     setShowOptionsPopup(!showOptionsPopup)
   }
 
-  const handleGoLogin = () => {
-    navigate('/login')
-  }
-
   const handleGoHome = () => {
     navigate('/home')
+  }
+
+  const handleGoProfile = () => {
+    navigate('/profile')
+  }
+
+  const handleLogout = async () => {
+    await handleSignOut()
+    navigate('/login')
   }
 
   const styles = {
@@ -62,31 +60,40 @@ export default function Menu() {
         backgroundColor: '#f5f5f5',
       },
     },
+    Title: {
+      cursor: 'pointer',
+    },
   }
 
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar sx={styles.Toolbar}>
-          <Box>
-            <Typography variant="h4" onClick={handleGoHome}>
-              Projects Manager
+    <>
+      <Box>
+        <AppBar position="static">
+          <Toolbar sx={styles.Toolbar}>
+            <Box>
+              <Typography variant="h4" onClick={handleGoHome} sx={styles.Title}>
+                Projects Manager
+              </Typography>
+            </Box>
+            <Box sx={styles.BoxAccount}>
+              <AccountCircleIcon
+                sx={styles.AccountIcon}
+                onClick={handleOpenOptionsPopup}
+              />
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {showOptionsPopup && (
+          <Card sx={styles.CardPopup}>
+            <Typography sx={styles.OptionsLink} onClick={handleGoProfile}>
+              profile
             </Typography>
-          </Box>
-          <Box sx={styles.BoxAccount}>
-            <AccountCircleIcon
-              sx={styles.AccountIcon}
-              onClick={handleOpenOptionsPopup}
-            />
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {showOptionsPopup && (
-        <Card sx={styles.CardPopup}>
-          <Typography sx={styles.OptionsLink}>profile</Typography>
-          <Typography sx={styles.OptionsLink}>logout</Typography>
-        </Card>
-      )}
-    </Box>
+            <Typography sx={styles.OptionsLink} onClick={handleLogout}>
+              logout
+            </Typography>
+          </Card>
+        )}
+      </Box>
+    </>
   )
 }
