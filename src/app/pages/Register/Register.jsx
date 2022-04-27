@@ -3,10 +3,16 @@ import { Box, Button, Typography, Input } from '@mui/material'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuthContext } from '../../context/AuthContext'
+import AlertMessage from '../../common/AlertMessage'
 export default function Register() {
   const { register } = useAuthContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState({
+    name: '',
+    message: '',
+  })
+  const [isShowAlertError, setIsShowAlertError] = useState(false)
   const navigate = useNavigate()
 
   const handleChangeEmail = (e) => {
@@ -19,11 +25,13 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    isShowAlertError && setIsShowAlertError(false)
     try {
       await register(email, password)
       navigate('/home')
     } catch (e) {
-      console.log(e.message)
+      setIsShowAlertError(true)
+      setError({ title: e.name, message: e.message })
     }
   }
 
@@ -61,12 +69,19 @@ export default function Register() {
       <Menu />
       <Box sx={styles.BoxContainer}>
         <Box sx={styles.FormContainer} component="form" onSubmit={handleSubmit}>
+          {isShowAlertError && (
+            <AlertMessage
+              alertType="error"
+              title={error.name}
+              message={error.message}
+            />
+          )}
           <Typography variant="h2" component="h2" gap="10" sx={styles.Title}>
             Create account
           </Typography>
           <Input
             placeholder="email@email.com"
-            type="email"
+            type="text"
             onChange={handleChangeEmail}
             value={email}
           />

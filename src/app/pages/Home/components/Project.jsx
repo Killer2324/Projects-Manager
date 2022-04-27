@@ -4,20 +4,9 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink'
 import { red } from '@mui/material/colors'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { db } from '../../../firebase/firebase'
-export default function Project({
-  id,
-  title,
-  description,
-  link,
-  projects,
-  setProjects,
-}) {
+export default function Project({ id, title, description, link }) {
   const handleDeleteProject = async (id) => {
-    try {
-      await deleteDoc(doc(db, 'projects', id))
-    } catch (e) {
-      console.log(e.message)
-    }
+    await deleteDoc(doc(db, 'projects', id))
   }
 
   const styles = {

@@ -25,12 +25,13 @@ export default function Login() {
   }
 
   const handleLoginGoogle = async () => {
-    setIsShowAlertError(false)
+    isShowAlertError && setIsShowAlertError(false)
     try {
       await loginGoogle()
       navigate('/home')
     } catch (e) {
-      console.log(e.message)
+      setIsShowAlertError(true)
+      setError({ title: e.name, message: e.message })
     }
   }
 
