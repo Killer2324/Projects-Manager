@@ -2,7 +2,8 @@ import { Typography, Card, CardContent, Box } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import InsertLinkIcon from '@mui/icons-material/InsertLink'
 import { red } from '@mui/material/colors'
-
+import { doc, deleteDoc } from 'firebase/firestore'
+import { db } from '../../../firebase/firebase'
 export default function Project({
   id,
   title,
@@ -11,11 +12,12 @@ export default function Project({
   projects,
   setProjects,
 }) {
-  const handleDeleteProject = (id) => {
-    const indexProject = projects.findIndex((project) => project.id === id)
-    const newProjects = [...projects]
-    newProjects.splice(indexProject, 1)
-    setProjects(newProjects)
+  const handleDeleteProject = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'projects', id))
+    } catch (e) {
+      console.log(e.message)
+    }
   }
 
   const styles = {
