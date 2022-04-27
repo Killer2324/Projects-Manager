@@ -6,17 +6,30 @@ import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
 import Spinner from '../../common/Spinner'
-import { onSnapshot, collection, orderBy, query } from 'firebase/firestore'
+import {
+  onSnapshot,
+  collection,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore'
 import { db } from '../../firebase/firebase'
-
+import { useAuthContext } from '../../context/AuthContext'
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const { user } = useAuthContext()
 
   useEffect(() => {
+    const displayName = user.displayName || user.email
+
     onSnapshot(
-      query(collection(db, 'projects'), orderBy('timestamp', 'desc')),
+      query(
+        collection(db, 'projects'),
+        orderBy('timestamp', 'desc'),
+        where('username', '==', displayName)
+      ),
       (snapshot) => {
         setProjects(
           snapshot.docs.map((doc) => ({
