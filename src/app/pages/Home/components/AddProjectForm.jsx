@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, Button, Typography, Input } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../firebase/firebase'
+import { useAuthContext } from '../../../context/AuthContext'
 export default function AddProjectForm({ setIsOpenModal }) {
   const [newProject, setNewProject] = useState({
     title: '',
     description: '',
     link: '',
+    username: '',
   })
+  const { user } = useAuthContext()
+
+  useEffect(() => {
+    const displayName = user.displayName || user.email
+    setNewProject({ ...newProject, username: displayName })
+  }, [])
+
   const handleChangeTitle = (e) => {
     setNewProject({ ...newProject, title: e.target.value })
   }
@@ -23,13 +32,6 @@ export default function AddProjectForm({ setIsOpenModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    /*
-      VERSION 8
-      // db.collection('projects').add({
-      //   ...newProject,
-      //   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      // })
-    */
     await addDoc(collection(db, 'projects'), {
       ...newProject,
       timestamp: serverTimestamp(),
