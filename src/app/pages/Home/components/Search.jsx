@@ -1,6 +1,10 @@
 import SearchIcon from '@mui/icons-material/Search'
 
-export default function Search() {
+export default function Search({ setSearchValue }) {
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
+
   const styles = {
     Container: { padding: '15px 40px' },
     searchInput: {
@@ -22,16 +26,15 @@ export default function Search() {
 
   return (
     <div style={styles.Container}>
-      <form action="">
-        <div style={styles.SearchInputContainer}>
-          <SearchIcon />
-          <input
-            type="text"
-            style={styles.searchInput}
-            placeholder="search project"
-          />
-        </div>
-      </form>
+      <div style={styles.SearchInputContainer}>
+        <SearchIcon />
+        <input
+          type="text"
+          style={styles.searchInput}
+          placeholder="search project"
+          onChange={handleSearch}
+        />
+      </div>
     </div>
   )
 }

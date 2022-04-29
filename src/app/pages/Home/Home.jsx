@@ -1,7 +1,7 @@
 import Menu from '../../common/Menu'
 import Box from '@mui/material/Box'
 import Project from './components/Project'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import AddProjectButton from './components/AddProjectButton'
 import AddProjectModal from './components/AddProjectModal'
 import AddProjectForm from './components/AddProjectForm'
@@ -21,7 +21,22 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
   const { user } = useAuthContext()
+
+  const searchedProject = useRef([])
+
+  if (searchValue.length >= 1) {
+    const filterProjects = [...projects]
+    searchedProject.current = filterProjects.filter((project) => {
+      const lowerTitle = project.data.title.toLowerCase()
+      const lowerSearchValue = searchValue.toLowerCase()
+
+      return lowerTitle.includes(lowerSearchValue)
+    })
+  } else {
+    searchedProject.current = [...projects]
+  }
 
   useEffect(() => {
     const displayName = user.displayName || user.email
@@ -67,19 +82,21 @@ export default function Home() {
       {!isLoading ? (
         <main>
           <Menu />
-          <Search />
+          <Search setSearchValue={setSearchValue} />
           <Box sx={styles.BoxProjectContainer}>
-            {projects.map(({ id, data: { title, description, link } }) => (
-              <Project
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                link={link}
-                projects={projects}
-                setProjects={setProjects}
-              />
-            ))}
+            {searchedProject.current.map(
+              ({ id, data: { title, description, link } }) => (
+                <Project
+                  key={id}
+                  id={id}
+                  title={title}
+                  description={description}
+                  link={link}
+                  projects={projects}
+                  setProjects={setProjects}
+                />
+              )
+            )}
           </Box>
           {isOpenModal && (
             <AddProjectModal>
