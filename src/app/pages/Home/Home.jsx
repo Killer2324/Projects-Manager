@@ -50,11 +50,11 @@ export default function Home() {
       height: 'calc(100vh - 64px)',
       padding: '15px 40px',
       display: 'grid',
-      gridTemplateColumns: 'repeat(5, 1fr)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gridAutoRows: '150px',
       gridGap: '15px',
       overflowY: 'scroll',
-      '@media (max-width: 596px)': {
+      '@media (max-width: 1200px)': {
         gridTemplateColumns: 'repeat(1, 1fr)',
         justifyContent: 'center',
       },
