@@ -8,6 +8,10 @@ export default function AddProjectButton({ setIsOpenModal }) {
     right: '40px',
     borderRadius: '50%',
     padding: '25px 30px',
+    '@media (max-width: 1200px)': {
+      bottom: '20px',
+      right: '20px',
+    },
   }
 
   const handleOpenModal = () => {

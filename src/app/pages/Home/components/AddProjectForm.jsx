@@ -82,7 +82,7 @@ export default function AddProjectForm({ setIsOpenModal }) {
 
   return (
     <Box sx={styles.BoxContainer}>
-      <Box component="form" style={styles.BoxForm} onSubmit={handleSubmit}>
+      <Box component="form" sx={styles.BoxForm} onSubmit={handleSubmit}>
         <Box sx={styles.BoxHeader}>
           <Typography variant="h4">Add Project</Typography>
           <CloseIcon sx={styles.CloseIcon} onClick={handleClose} />

@@ -54,6 +54,9 @@ export default function Login() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      '@media (max-width: 396px)': {
+        height: 'calc(100vh - 120px)',
+      },
     },
     FormContainer: {
       width: '400px',
@@ -61,6 +64,10 @@ export default function Login() {
       display: 'flex',
       flexDirection: 'column',
       gap: '10px',
+      '@media (max-width: 1200px)': {
+        width: '318px',
+        height: '400px',
+      },
     },
     Title: {
       textAlign: 'center',

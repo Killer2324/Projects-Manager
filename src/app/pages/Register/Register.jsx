@@ -42,6 +42,9 @@ export default function Register() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      '@media (max-width: 396px)': {
+        height: 'calc(100vh - 120px)',
+      },
     },
     FormContainer: {
       width: '400px',
@@ -49,9 +52,16 @@ export default function Register() {
       display: 'flex',
       flexDirection: 'column',
       gap: '10px',
+      '@media (max-width: 1200px)': {
+        width: '318px',
+        height: '400px',
+      },
     },
     Title: {
       textAlign: 'center',
+      '@media (max-width: 1200px)': {
+        fontSize: '48px',
+      },
     },
     linkReactRouter: { textDecoration: 'none' },
     link: {
