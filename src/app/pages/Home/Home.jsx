@@ -62,7 +62,7 @@ export default function Home() {
   const styles = {
     BoxProjectContainer: {
       widht: '100%',
-      height: 'calc(100vh - 64px)',
+      height: 'calc(100vh - 138px)',
       padding: '15px 40px',
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)',
