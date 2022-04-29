@@ -15,6 +15,8 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../firebase/firebase'
 import { useAuthContext } from '../../context/AuthContext'
+import Search from './components/Search'
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [projects, setProjects] = useState([])
@@ -61,6 +63,7 @@ export default function Home() {
       {!isLoading ? (
         <main>
           <Menu />
+          <Search />
           <Box sx={styles.BoxProjectContainer}>
             {projects.map(({ id, data: { title, description, link } }) => (
               <Project
