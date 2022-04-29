@@ -50,10 +50,14 @@ export default function Home() {
       height: 'calc(100vh - 64px)',
       padding: '15px 40px',
       display: 'grid',
-      gridTemplateColumns: 'repeat(5, 243px)',
+      gridTemplateColumns: 'repeat(5, 1fr)',
       gridAutoRows: '150px',
       gridGap: '15px',
       overflowY: 'scroll',
+      '@media (max-width: 596px)': {
+        gridTemplateColumns: 'repeat(1, 1fr)',
+        justifyContent: 'center',
+      },
     },
   }
 
