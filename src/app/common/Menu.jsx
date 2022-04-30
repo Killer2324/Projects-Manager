@@ -86,9 +86,6 @@ export default function Menu() {
         </AppBar>
         {showOptionsPopup && (
           <Card sx={styles.CardPopup}>
-            <Typography sx={styles.OptionsLink} onClick={handleGoProfile}>
-              profile
-            </Typography>
             <Typography sx={styles.OptionsLink} onClick={handleLogout}>
               logout
             </Typography>
