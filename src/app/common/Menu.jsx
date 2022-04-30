@@ -17,10 +17,6 @@ export default function Menu() {
     navigate('/home')
   }
 
-  const handleGoProfile = () => {
-    navigate('/profile')
-  }
-
   const handleLogout = async () => {
     await handleSignOut()
     navigate('/login')
