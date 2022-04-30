@@ -78,6 +78,16 @@ export default function AddProjectForm({ setIsOpenModal }) {
       flexDirection: 'column',
       gap: '10px',
     },
+    createRepoLink: {
+      textDecoration: 'none',
+      color: '#1976D2',
+      fontSize: '1rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
   }
 
   return (
@@ -97,6 +107,16 @@ export default function AddProjectForm({ setIsOpenModal }) {
             placeholder="link of your project"
             onChange={handleChangeLink}
           />
+          <Typography
+            variant="body2"
+            component="a"
+            href="https://github.com/new"
+            rel="noreferrer"
+            target="_blank"
+            sx={styles.createRepoLink}
+          >
+            create a github repository
+          </Typography>
           <Button variant="contained" type="submit">
             create project
           </Button>
