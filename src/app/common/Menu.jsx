@@ -19,7 +19,7 @@ export default function Menu() {
 
   const handleLogout = async () => {
     await handleSignOut()
-    navigate('/login')
+    window.location.reload()
   }
 
   const styles = {
