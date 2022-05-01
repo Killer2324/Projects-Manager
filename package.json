@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "prettier": "prettier --write .",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
