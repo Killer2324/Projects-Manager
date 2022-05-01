@@ -2,7 +2,6 @@
   "name": "projects-manager",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://killer2324.github.io/Projects-Manager/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
