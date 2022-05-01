@@ -81,10 +81,9 @@ export default function Login() {
       },
     },
     linkReactRouter: { textDecoration: 'none' },
-    LoginButtonFG: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
+    // LoginButtonFG: {
+    //   display: 'flex',
+    // },
     LoginButtonGoogle: {
       backgroundColor: red[500],
       '&:hover': {
@@ -144,19 +143,16 @@ export default function Login() {
               gap="10px"
               sx={styles.LoginWithOtherProviders}
             >
-              Login with Google or Facebook
+              Login with Google
             </Typography>
           </Box>
-          <Box sx={styles.LoginButtonFG}>
-            <Button
-              variant="contained"
-              sx={styles.LoginButtonGoogle}
-              onClick={handleLoginGoogle}
-            >
-              Google
-            </Button>
-            <Button variant="contained">Facebook</Button>
-          </Box>
+          <Button
+            variant="contained"
+            sx={styles.LoginButtonGoogle}
+            onClick={handleLoginGoogle}
+          >
+            Google
+          </Button>
         </Box>
       </Box>
     </main>
