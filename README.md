@@ -20,7 +20,7 @@ I hope to add more features to this tool like these:<br>
 
 ### Link to the project
 
-https://projects-manager-f5f1d.web.app/login
+https://projects-manager-f5f1d.web.app
 
 ### License
 
