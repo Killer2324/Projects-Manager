@@ -22,7 +22,7 @@ I hope to add more features to this tool like these:<br>
 
 ### License
 
-### Contributing
+MIT Licence
 
 ### Dependencies
 
