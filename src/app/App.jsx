@@ -4,6 +4,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import { AuthProvider } from './context/AuthContext'
 import ProtectRoutes from './utils/ProtectRoutes'
+import ProjectPage from './pages/Project/Project'
 
 export default function App() {
   return (
@@ -22,6 +23,14 @@ export default function App() {
           element={
             <ProtectRoutes>
               <Home />
+            </ProtectRoutes>
+          }
+        />
+        <Route
+          path="/project/:id"
+          element={
+            <ProtectRoutes>
+              <ProjectPage />
             </ProtectRoutes>
           }
         />
