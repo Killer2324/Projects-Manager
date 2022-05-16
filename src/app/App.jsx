@@ -4,7 +4,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import { AuthProvider } from './context/AuthContext'
 import ProtectRoutes from './utils/ProtectRoutes'
-import ProjectPage from './pages/Project/Project'
+import ProjectPage from './pages/Project/ProjectPage'
 
 export default function App() {
   return (
@@ -27,7 +27,7 @@ export default function App() {
           }
         />
         <Route
-          path="/project/:id"
+          path="/home/project/:id"
           element={
             <ProtectRoutes>
               <ProjectPage />
