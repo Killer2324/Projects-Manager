@@ -42,8 +42,8 @@ export default function Project({ id, title, description, link }) {
           <Typography variant="h6">{title}</Typography>
           <a
             href={`${window.location.href + '/project/' + id}`}
-            target="_blank"
-            rel="noreferrer"
+            //target="_blank"
+            //rel="noreferrer"
           >
             <CallMadeIcon />
           </a>
