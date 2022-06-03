@@ -41,7 +41,7 @@ export default function Project({ id, title, description, link }) {
         <Box sx={styles.BoxHeader}>
           <Typography variant="h6">{title}</Typography>
           <a
-            href={`${window.location.href + '/project/' + id}`}
+            href={`${window.location.href + 'project/' + id}`}
             //target="_blank"
             //rel="noreferrer"
           >

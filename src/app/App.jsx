@@ -34,6 +34,14 @@ export default function App() {
             </ProtectRoutes>
           }
         />
+        <Route
+          path="/project/:id"
+          element={
+            <ProtectRoutes>
+              <ProjectPage />
+            </ProtectRoutes>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Register />} />
       </Routes>
